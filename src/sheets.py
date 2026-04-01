@@ -30,7 +30,7 @@ HEADERS = [
 ]
 
 
-def _get_worksheet() -> gspread.Worksheet | None:
+def _get_worksheet():
     """Ouvre le Google Sheet et retourne la première feuille."""
     creds_json = os.getenv("GOOGLE_CREDENTIALS_JSON", "")
     sheet_id = os.getenv("GOOGLE_SHEETS_ID", "")

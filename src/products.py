@@ -288,7 +288,7 @@ PRODUCTS: dict = {
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
-def get_products_by_category(cat_id: str) -> list[dict]:
+def get_products_by_category(cat_id: str) -> list:
     """Retourne la liste des produits d'une catégorie donnée."""
     return [
         {"id": pid, **prod}
@@ -297,7 +297,7 @@ def get_products_by_category(cat_id: str) -> list[dict]:
     ]
 
 
-def get_product(prod_id: str) -> dict | None:
+def get_product(prod_id: str):
     """Retourne un produit par son ID ou None si introuvable."""
     prod = PRODUCTS.get(prod_id)
     if prod:
@@ -305,7 +305,7 @@ def get_product(prod_id: str) -> dict | None:
     return None
 
 
-def get_variant_by_index(prod_id: str, idx: int) -> tuple[str, int] | None:
+def get_variant_by_index(prod_id: str, idx: int):
     """Retourne (label_variant, prix) pour l'index donné, ou None."""
     prod = PRODUCTS.get(prod_id)
     if not prod:

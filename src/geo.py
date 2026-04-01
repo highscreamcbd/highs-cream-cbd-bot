@@ -25,7 +25,7 @@ def haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> fl
     return 2 * R * math.asin(math.sqrt(a))
 
 
-async def geocode_address(address: str) -> tuple[float, float] | None:
+async def geocode_address(address: str):
     """
     Géocode une adresse textuelle via l'API Nominatim (OpenStreetMap).
     Retourne (latitude, longitude) ou None si non trouvé.
