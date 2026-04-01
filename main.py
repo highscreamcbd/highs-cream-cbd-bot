@@ -54,6 +54,7 @@ logging.basicConfig(
     stream=sys.stdout,
 )
 logger = logging.getLogger(__name__)
+VERSION = "1.0.1"
 
 
 def build_app() -> Application:
@@ -119,7 +120,7 @@ def build_app() -> Application:
     app.add_handler(conv)
     app.add_handler(CommandHandler("commandes", cmd_commandes))
 
-    logger.info("✅ Bot High's Cream CBD démarré !")
+    logger.info(f"✅ Bot High's Cream CBD démarré — v{VERSION}")
     return app
 
 
