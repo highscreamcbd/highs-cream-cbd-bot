@@ -81,7 +81,7 @@ def _format_cart(cart: dict) -> str:
     if total < MIN_ORDER_EUR:
         remaining = MIN_ORDER_EUR - total
         lines.append(
-            f"⚠️ _Minimum {MIN_ORDER_EUR}€ pour passer commande. Il vous manque {remaining}€._"
+            f"⚠️ _Minimum {MIN_ORDER_EUR}€ pour passer commande\\. Il vous manque {remaining}€\\._"
         )
     else:
         lines.append("✅ _Minimum atteint — vous pouvez commander !_")
@@ -154,13 +154,13 @@ async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> int:
 
     cart = _cart(ctx)
     total = _cart_total(cart)
-    cart_badge = f" | 🛒 {total}€" if total > 0 else ""
+    cart_badge = f" \\| 🛒 {total}€" if total > 0 else ""
 
     text = (
-        f"🌿 *Bienvenue chez {SHOP_NAME} !*\n\n"
+        f"🌿 *Bienvenue chez {_escape(SHOP_NAME)} \\!*\n\n"
         "Votre boutique CBD à Chartres, livrée à domicile 🚚\n\n"
         f"📦 Commande minimum : *{MIN_ORDER_EUR}€*\n"
-        f"📍 Zone : *{MAX_DISTANCE_KM}km autour de Chartres*\n"
+        f"📍 Zone : *{int(MAX_DISTANCE_KM)}km autour de Chartres*\n"
         "🕐 Livraison *le lendemain*, créneau au choix\n"
         "💳 Paiement *à la livraison*\n\n"
         f"Choisissez une catégorie{cart_badge} :"
@@ -446,7 +446,7 @@ async def handle_phone(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> int:
         "📍 *Votre adresse de livraison* :\n\n"
         "Tapez votre adresse complète ou *partagez votre position* 📌\n"
         "_\\(Ex : 15 rue de la Paix, Chartres 28000\\)_\n\n"
-        f"⚠️ _Livraison uniquement dans un rayon de {MAX_DISTANCE_KM}km autour de Chartres\\._",
+        f"⚠️ _Livraison uniquement dans un rayon de {int(MAX_DISTANCE_KM)}km autour de Chartres\\._",
         parse_mode=ParseMode.MARKDOWN_V2,
     )
     return CHECKOUT_ADDRESS
@@ -479,7 +479,7 @@ async def handle_address(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> int:
         await update.message.reply_text(
             f"❌ *Zone hors livraison*\n\n"
             f"Votre adresse est à *{distance:.1f}km* de Chartres\\.\n"
-            f"Nous livrons uniquement dans un rayon de *{MAX_DISTANCE_KM}km*\\.\n\n"
+            f"Nous livrons uniquement dans un rayon de *{int(MAX_DISTANCE_KM)}km*\\.\n\n"
             "Essayez une autre adresse ou contactez\\-nous directement\\.",
             parse_mode=ParseMode.MARKDOWN_V2,
         )
@@ -506,7 +506,7 @@ async def handle_location(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> int
         await update.message.reply_text(
             f"❌ *Zone hors livraison*\n\n"
             f"Votre position est à *{distance:.1f}km* de Chartres\\.\n"
-            f"Nous livrons dans un rayon de *{MAX_DISTANCE_KM}km* maximum\\.",
+            f"Nous livrons dans un rayon de *{int(MAX_DISTANCE_KM)}km* maximum\\.",
             parse_mode=ParseMode.MARKDOWN_V2,
         )
         return CHECKOUT_ADDRESS
