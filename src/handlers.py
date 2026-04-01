@@ -71,7 +71,7 @@ def _format_cart(cart: dict) -> str:
     for item in cart.values():
         subtotal = item["price"] * item["qty"]
         lines.append(
-            f"• {item['emoji']} {item['name']} _({item['variant']})_"
+            f"• {item['emoji']} {_escape(item['name'])} _\\({_escape(item['variant'])}\\)_"
             f" ×{item['qty']} — *{subtotal}€*"
         )
 
@@ -84,7 +84,7 @@ def _format_cart(cart: dict) -> str:
             f"⚠️ _Minimum {MIN_ORDER_EUR}€ pour passer commande\\. Il vous manque {remaining}€\\._"
         )
     else:
-        lines.append("✅ _Minimum atteint — vous pouvez commander !_")
+        lines.append("✅ _Minimum atteint — vous pouvez commander \\!_")
 
     return "\n".join(lines)
 
@@ -578,7 +578,7 @@ async def _show_order_summary(update: Update, ctx: ContextTypes.DEFAULT_TYPE) ->
     total = _cart_total(cart)
 
     items_text = "\n".join(
-        f"  • {item['emoji']} {item['name']} \\({_escape(item['variant'])}\\)"
+        f"  • {item['emoji']} {_escape(item['name'])} \\({_escape(item['variant'])}\\)"
         f" ×{item['qty']} \\= {item['price'] * item['qty']}€"
         for item in cart.values()
     )
