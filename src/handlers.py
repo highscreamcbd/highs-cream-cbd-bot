@@ -687,7 +687,7 @@ async def _notify_admin(ctx: ContextTypes.DEFAULT_TYPE, order: dict) -> None:
         f"🔔 *NOUVELLE COMMANDE* `{order['order_id']}`\n\n"
         f"👤 *Client :* {_escape(order['name'])}\n"
         f"📱 *Tél :* {_escape(order['phone'])}\n"
-        f"📍 *Adresse :* {_escape(order['address'])} _\\({order['distance']:.1f}km\\)_\n"
+        f"📍 *Adresse :* {_escape(order['address'])} _\\({_escape(f\"{order['distance']:.1f}\")}km\\)_\n"
         f"📅 *Livraison :* {_escape(order['date'])}\n"
         f"🕐 *Créneau :* {_escape(order['slot'])}\n\n"
         f"🛍️ *Articles :*\n{items_text}\n\n"
