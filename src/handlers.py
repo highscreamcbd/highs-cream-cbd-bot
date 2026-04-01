@@ -679,21 +679,21 @@ async def _notify_admin(ctx: ContextTypes.DEFAULT_TYPE, order: dict) -> None:
         return
 
     items_text = "\n".join(
-        f"  • {item['emoji']} {item['name']} ({item['variant']}) ×{item['qty']} = {item['total']}€"
+        f"  • {item['emoji']} {_escape(item['name'])} \\({_escape(item['variant'])}\\) ×{item['qty']} \\= {item['total']}€"
         for item in order["items"]
     )
 
     msg = (
         f"🔔 *NOUVELLE COMMANDE* `{order['order_id']}`\n\n"
-        f"👤 *Client :* {order['name']}\n"
-        f"📱 *Tél :* {order['phone']}\n"
-        f"📍 *Adresse :* {order['address']} _({order['distance']:.1f}km)_\n"
-        f"📅 *Livraison :* {order['date']}\n"
-        f"🕐 *Créneau :* {order['slot']}\n\n"
+        f"👤 *Client :* {_escape(order['name'])}\n"
+        f"📱 *Tél :* {_escape(order['phone'])}\n"
+        f"📍 *Adresse :* {_escape(order['address'])} _\\({order['distance']:.1f}km\\)_\n"
+        f"📅 *Livraison :* {_escape(order['date'])}\n"
+        f"🕐 *Créneau :* {_escape(order['slot'])}\n\n"
         f"🛍️ *Articles :*\n{items_text}\n\n"
         f"💰 *TOTAL : {order['total']}€*\n"
         f"💳 *Paiement :* À la livraison\n\n"
-        f"🕓 *Commande passée le :* {order['timestamp']}"
+        f"🕓 *Commande passée le :* {_escape(order['timestamp'])}"
     )
 
     await ctx.bot.send_message(
